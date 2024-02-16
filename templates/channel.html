@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Channel {{ channel.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/image.jpg') }}");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover; 
+        }
+    </style>
+</head>
+<body>
+    <header>Eliza Chatbot</header>
+    <p>The distributed messenger. <a href="{{ url_for('home_page') }}">List of channels.</a> </p>
+    {% if channel %}
+        <h1>Channel {{ channel.name }}</h1>
+        <div class="message-container">
+            {% for message in messages %}
+                <div class="message">
+                    <h2>{{ message.sender }}</h2>
+                    <p>{{ message.content }}</p>
+                    <p class="timestamp">{{ message.timestamp }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h1>Channel not found</h1>
+    {% endif %}
+
+    <form id="messageForm">
+        <input type="hidden" name="channel" value="{{ channel.endpoint | urlencode }}">
+        Sender: <input type="text" name="sender" id="sender" placeholder="Enter your name"> <br>
+        Message: <input type="text" name="content" id="content" placeholder="Enter your message"> <br>
+        <input type="button" value="Post" onclick="postMessage()">
+    </form>
+
+    <script>
+        function postMessage() {
+            var form = document.getElementById('messageForm');
+            var formData = new FormData(form);
+
+            var url = "{{ url_for('post_message') }}";
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // clear input fields
+                    document.getElementById('sender').value = '';
+                    document.getElementById('content').value = '';
+                    
+                    // Refresh messages after posting
+                    refreshMessages();
+                } else {
+                    // Handle error response
+                    console.error(xhr.responseText);
+                }
+            };
+            xhr.send(formData);
+        }
+
+        function refreshMessages() {
+            // refresh messages asynchronously
+            //  call show_channel route using AJAX
+            var channelEndpoint = encodeURIComponent("{{ channel.endpoint }}");
+            var showURL = "{{ url_for('show_channel') }}?channel=" + channelEndpoint;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', showURL, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Replace current content with refreshed content
+                    document.body.innerHTML = xhr.responseText;
+                } else {
+                    // Handle error response
+                    console.error(xhr.responseText);
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

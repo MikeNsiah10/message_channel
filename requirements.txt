@@ -1,0 +1,4 @@
+flask
+flask-sqlalchemy
+requests
+flask-user==1.0.2.2
