@@ -92,7 +92,10 @@ def save_messages(messages):
     with open(CHANNEL_FILE, 'w') as f:
         json.dump(messages, f)
 
+
 #implement a guessing game
+import random
+
 class GuessingGame:
     def __init__(self):
         self.reset_game()
@@ -101,20 +104,27 @@ class GuessingGame:
         #reset game
         self.number_to_guess = random.randint(1, 20)
         self.game_over = False
-        return "Game resetted! guess the random number generated(1,20)."
+        return "Game resetted! Guess the random number generated(1,20)."
 
     def guess(self, guess):
-        if self.game_over:
-            return "Game over! Type new guess to start a new game."
-        elif guess == self.number_to_guess:
-            self.game_over = True
-            return "Congratulations! You guessed correctly."
-        elif guess < self.number_to_guess:
-            return "Too low! Try again."
-        else:
-            return "Too high! Try again."
-#create an instance of the class
+            guess = int(guess)
+            #handle out of bound numbers
+            if guess < 1 or guess > 20:
+                return "Please enter a number between 1 and 20,both numbers included."
+            if self.game_over:
+                return "Game over! Type 'reset' to start a new game."
+            elif guess == self.number_to_guess:
+                self.game_over = True
+                return "Congratulations! You guessed correctly."
+            elif guess < self.number_to_guess:
+                return "Too low! Try again."
+            else:
+                return "Too high! Try again."
+
+# create an instance of the class
 game = GuessingGame()
+
+
        
 
 # ELIZA-style Chatbot
@@ -124,20 +134,20 @@ def eliza_chatbot(message_content):
     """
     # Basic responses based on patterns
     responses = {
-      r'calculate (\d+) plus (\d+)':  [lambda x, y: str(int(x) + int(y))],
-      r'calculate (\d+) minus (\d+)': [lambda x, y: str(int(x) - int(y))],
-      r'calculate (\d+) times (\d+)': [lambda x, y: str(int(x) * int(y))],
-      r'calculate (\d+) divided by (\d+)': [lambda x, y: str(int(x) / int(y)) if int(y) != 0 else "Cannot divide by zero!"], 
-      r'game':["okay, try to guess the number generated(1,20),Let's go"],
+      r'calculate (-?\d+) plus (-?\d+)':  [lambda x, y: int(x) + int(y)],
+      r'calculate (-?\d+) minus (-?\d+)': [lambda x, y: int(x) - int(y)],
+      r'calculate (-?\d+) times (-?\d+)': [lambda x, y: int(x) * int(y)],
+      r'calculate (-?\d+) divided by (-?\d+)': [lambda x, y: (int(x) / int(y)) if int(y) != 0 else "Cannot divide by zero!"], 
+      r'game':["okay, try to guess the number generated(1,20) both number included,Let's go"],
       r'(\d+)': [lambda x: game.guess(int(x))],
-      r'new guess': [lambda: game.reset_game()],
+      r'reset': [lambda: game.reset_game()],
       r'how are you': ["I'm just a bot, but thanks for asking!", "I don't have feelings, but I'm here to help!"],
       r'your name|who are you': ["I'm just a chatbot! You can call me Ruby"],
       r'Hello|Hi|Hey|Good morning|Good afternoon': [
         "Hello! How can I help you today?",
         "Hi there! What brings you here?"],
       r'what can you do':["I can respond to text about Osnabrueck university and myself,tell jokes,do some basic maths and play a guess game"],
-      r'maths': ["okay.let's start with the basics(add,substract,multiply,divide)"],
+      r'maths|mathematics': ["okay.let's start with the basics,use keyword:calculate (int) plus|minus|times|divided by (int)"],
       r'Tell me something interesting': [
         "Did you know that Osnabrück is known, particularly for its role in the Peace of Westphalia treaty(1648)which ended 30years War in Europe?",
         "Osnabrück is home to the University of Osnabrück(1974) which contributes to the city's vibrant academic and cultural life",
@@ -150,15 +160,18 @@ def eliza_chatbot(message_content):
       r'bye|goodbye|see you': ["Goodbye!have a great day", "See you later,Take care!", "Bye!"],
       r'weather': ["I'm not a weather bot, but you can check a weather website for the latest updates."],
       r'jokes': ["Sure,Why was the math book sad?Because it had too many problems!",
-      "okay,How does a penguin build its house?Igloos it together!"],
+      "okay,How does a penguin build its house?Igloos it together!",
+      " Ofcourse, What do you call a bear with no teeth? A gummy bear!",
+      "Willingly,What do you call fake spaghetti? An impasta!",
+      "with pleasure,Why did the golfer bring two pairs of pants? In case he got a hole in one!"],
       r'time': ["I don't wear a watch, for me it's always chatbot o'clock!"],
       r'how old are you': ["I don't age; I'm timeless!"],
-      r'information about the university': [
+      r'information|describe|say about|talk about': [
         "Our university, Osnabrück University, offers a wide range of academic programs and a vibrant campus life. How can I help you further?",
         "Osnabrück University is known for its diverse academic offerings and supportive community. What specific information are you looking for?"
       ],
-      r'what courses are offered': [
-        "We offer a variety of undergraduate and graduate programs in fields such as Cognitive Science, Economics, and more.(visit Universität Osnabrück website for more info)",
+      r'courses|discipline': [
+        "We offer a variety of undergraduate and graduate programs|courses in fields such as Cognitive Science, Economics, and more.(visit Universität Osnabrück website for more info)",
         "Our courses cover a wide range of disciplines including Environmental Sciences, Linguistics, and more.(visit Universität Osnabrück website for more info)"
       ],
       r' any specialized programs|any interdisciplinary programs': [
@@ -169,14 +182,14 @@ def eliza_chatbot(message_content):
         "Many of our courses are offered in a hybrid format, allowing students to attend classes in person or participate online.",
         "We understand the importance of flexibility, so we offer a variety of course delivery methods including hybrid, online, to accommodate different learning needs"
       ],
-      r'duration of study' :["The duration of study is 6semesters for undergraduate and 4 semesters for masters"],
+      r'duration|long' :["The duration of study is 6semesters for undergraduate and 4 semesters for masters"],
       r'thank you|thanks|thank you for the help': [
         "You're welcome! If you have any more questions, feel free to ask.",
         "No problem at all. Let me know if there's anything else I can assist you with."
       ],
       r'sports' :["The university has several sporting clubs of which you can join based on your interest"],
       r'support|guidance':["Support services available to students, include counseling services, career guidance, and disability support."],
-      r'application deadline':["The deadline for Application can be found on the university website(visit Universität Osnabrück website for more info)"],
+      r'deadline':["The deadline for Application can be found on the university website(visit Universität Osnabrück website for more info)"],
       r'financial aid|scholarship':["Yes,Students can apply for a wide range of financial and material support(visit Universität Osnabrück website for more info)"], 
       r'career opportunity':["The university shows different ways to find the right employer in Germany .(visit Universität Osnabrück website for more info)"],
 
@@ -198,7 +211,7 @@ def eliza_chatbot(message_content):
                 return response 
 
     # Default response if no match is found
-    return "I'm not sure how to respond to that. Can you please elaborate or rephrase?"
+    return "Not sure how to respond to that.if  game and calculation,enter an integer,if text enter valid text(check syntax) to be matched,thanks"
 
 # POST: Send a message and receive bot response
 @app.route('/', methods=['POST'])
