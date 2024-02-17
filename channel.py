@@ -138,7 +138,7 @@ def eliza_chatbot(message_content):
       r'calculate (-?\d+) minus (-?\d+)': [lambda x, y: int(x) - int(y)],
       r'calculate (-?\d+) times (-?\d+)': [lambda x, y: int(x) * int(y)],
       r'calculate (-?\d+) divided by (-?\d+)': [lambda x, y: (int(x) / int(y)) if int(y) != 0 else "Cannot divide by zero!"], 
-      r'game':["okay, try to guess the number generated(1,20) both number included,Let's go"],
+      r'game':["Sure, try to guess the number generated(1,20) both number included,Let's go"],
       r'(\d+)': [lambda x: game.guess(int(x))],
       r'reset': [lambda: game.reset_game()],
       r'how are you': ["I'm just a bot, but thanks for asking!", "I don't have feelings, but I'm here to help!"],
@@ -147,7 +147,7 @@ def eliza_chatbot(message_content):
         "Hello! How can I help you today?",
         "Hi there! What brings you here?"],
       r'what can you do':["I can respond to text about Osnabrueck university and myself,tell jokes,do some basic maths and play a guess game"],
-      r'maths|mathematics': ["okay.let's start with the basics,use keyword:calculate (int) plus|minus|times|divided by (int)"],
+      r'maths|mathematics': ["Sure.let's start with the basics,use keyword:calculate (int) plus|minus|times|divided by (int)"],
       r'Tell me something interesting': [
         "Did you know that Osnabrück is known, particularly for its role in the Peace of Westphalia treaty(1648)which ended 30years War in Europe?",
         "Osnabrück is home to the University of Osnabrück(1974) which contributes to the city's vibrant academic and cultural life",
