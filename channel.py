@@ -141,17 +141,12 @@ def eliza_chatbot(message_content):
       r'game':["Sure, try to guess the number generated(1,20) both number included,Let's go"],
       r'(\d+)': [lambda x: game.guess(int(x))],
       r'reset': [lambda: game.reset_game()],
-      r'how are you': ["I'm just a bot, but thanks for asking!", "I don't have feelings, but I'm here to help!"],
       r'your name|who are you': ["I'm just a chatbot! You can call me Ruby"],
       r'Hello|Hi|Hey|Good morning|Good afternoon': [
         "Hello! How can I help you today?",
         "Hi there! What brings you here?"],
       r'what can you do':["I can respond to text about Osnabrueck university and myself,tell jokes,do some basic maths and play a guess game"],
       r'maths|mathematics': ["Sure.let's start with the basics,use keyword:calculate (int) plus|minus|times|divided by (int)"],
-      r'Tell me something interesting': [
-        "Did you know that Osnabrück is known, particularly for its role in the Peace of Westphalia treaty(1648)which ended 30years War in Europe?",
-        "Osnabrück is home to the University of Osnabrück(1974) which contributes to the city's vibrant academic and cultural life",
-        "The city is home to several museums and art galleries, example is The Felix-Nussbaum-Haus"],
    
       r'favorite color|favorite food|favorite movie|favorite book|favorite music': [
         "I don't have personal preferences, but I'm curious to know about your favorites but maybe next time"],
