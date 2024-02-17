@@ -102,24 +102,24 @@ class GuessingGame:
 
     def reset_game(self):
         #reset game
-        self.number_to_guess = random.randint(1, 20)
+        self.number_to_guess = random.randint(1, 100)
         self.game_over = False
-        return "Game resetted! Guess the random number generated(1,20)."
+        return "Game resetted! Guess the random number generated(1,100)."
 
     def guess(self, guess):
             guess = int(guess)
             #handle out of bound numbers
-            if guess < 1 or guess > 20:
-                return "Please enter a number between 1 and 20,both numbers included."
+            if guess < 1 or guess > 100:
+                return "Please enter a number between 1 and 100,both numbers included."
             if self.game_over:
                 return "Game over! Type 'reset' to start a new game."
             elif guess == self.number_to_guess:
                 self.game_over = True
                 return "Congratulations! You guessed correctly."
             elif guess < self.number_to_guess:
-                return "Too low! Try again."
+                return str(guess) + " is too low! Try again."
             else:
-                return "Too high! Try again."
+                return str(guess) +  " is too high! Try again."
 
 # create an instance of the class
 game = GuessingGame()
@@ -138,7 +138,7 @@ def eliza_chatbot(message_content):
       r'calculate (-?\d+) minus (-?\d+)': [lambda x, y: int(x) - int(y)],
       r'calculate (-?\d+) times (-?\d+)': [lambda x, y: int(x) * int(y)],
       r'calculate (-?\d+) divided by (-?\d+)': [lambda x, y: (int(x) / int(y)) if int(y) != 0 else "Cannot divide by zero!"], 
-      r'game':["Sure, try to guess the number generated(1,20) both number included,Let's go"],
+      r'game':["Sure, try to guess the number generated(1,100) both number included,Let's go"],
       r'(\d+)': [lambda x: game.guess(int(x))],
       r'reset': [lambda: game.reset_game()],
       r'your name|who are you': ["I'm just a chatbot! You can call me Ruby"],
