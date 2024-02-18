@@ -184,7 +184,7 @@ def eliza_chatbot(message_content):
       r'sports' :["The university has several sporting clubs of which you can join based on your interest"],
       r'support|guidance':["Support services available to students, include counseling services, career guidance, and disability support."],
       r'deadline':["The deadline for Application can be found on the university website(visit Universität Osnabrück website for more info)"],
-      r'financial aid':["Yes,Students can apply for a wide range of financial and material support(visit Universität Osnabrück website for more info)"], 
+      r'financial aid|grants':["Yes,Students can apply for a wide range of financial and material support(visit Universität Osnabrück website for more info)"], 
       r'career opportunity':["The university shows different ways to find the right employer in Germany .(visit Universität Osnabrück website for more info)"],
 
     
