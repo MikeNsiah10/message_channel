@@ -168,7 +168,7 @@ def eliza_chatbot(message_content):
         "We offer a variety of undergraduate and graduate programs|courses in fields such as Cognitive Science, Economics, and more.(visit Universität Osnabrück website for more info)",
         "Our courses cover a wide range of disciplines including Environmental Sciences, Linguistics, and more.(visit Universität Osnabrück website for more info)"
       ],
-      r'specialized|interdisciplinary': [
+      r'specialized programs|interdisciplinary programs': [
         "Yes, we offer several specialized and interdisciplinary programs, such as Cognitive Sciences among others.(visit Universität Osnabrück website for more info)",
         "We have a variety of interdisciplinary options, including joint programs and specialized courses that integrate multiple disciplines.(visit Universität Osnabrück website for more info)"
       ],
