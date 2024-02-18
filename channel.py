@@ -168,16 +168,16 @@ def eliza_chatbot(message_content):
         "We offer a variety of undergraduate and graduate programs|courses in fields such as Cognitive Science, Economics, and more.(visit Universität Osnabrück website for more info)",
         "Our courses cover a wide range of disciplines including Environmental Sciences, Linguistics, and more.(visit Universität Osnabrück website for more info)"
       ],
-      r' any specialized programs|any interdisciplinary programs': [
+      r'specialized|interdisciplinary': [
         "Yes, we offer several specialized and interdisciplinary programs, such as Cognitive Sciences among others.(visit Universität Osnabrück website for more info)",
         "We have a variety of interdisciplinary options, including joint programs and specialized courses that integrate multiple disciplines.(visit Universität Osnabrück website for more info)"
       ],
-      r'mode of learning': [
+      r'learning': [
         "Many of our courses are offered in a hybrid format, allowing students to attend classes in person or participate online.",
         "We understand the importance of flexibility, so we offer a variety of course delivery methods including hybrid, online, to accommodate different learning needs"
       ],
       r'duration|long' :["The duration of study is 6semesters for undergraduate and 4 semesters for masters"],
-      r'thank you|thanks|thank you for the help': [
+      r'thank you|thanks': [
         "You're welcome! If you have any more questions, feel free to ask.",
         "No problem at all. Let me know if there's anything else I can assist you with."
       ],
