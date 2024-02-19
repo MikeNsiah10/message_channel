@@ -93,39 +93,44 @@ def save_messages(messages):
         json.dump(messages, f)
 
 
-#implement a guessing game
-import random
 
-class GuessingGame:
+
+# Number Sequence Guessing Game
+class NumberSequenceGame:
     def __init__(self):
         self.reset_game()
+        
 
     def reset_game(self):
-        #reset game
-        self.number_to_guess = random.randint(1, 100)
+        # Generate a 4 random sequence of numbers
+        self.secret_sequence = ''.join(str(x) for x in random.sample(range(10), 4))
+        self.num_attempts = 0
         self.game_over = False
-        return "Game resetted! Guess the random number generated(1,100)."
+        return "Game resetted,please guess the sequence"
 
-    def guess(self, guess):
-            guess = int(guess)
-            #handle out of bound numbers
-            if guess < 1 or guess > 100:
-                return "Please enter a number between 1 and 100,both numbers included."
-            if self.game_over:
-                return "Game over! Type 'reset' to start a new game."
-            elif guess == self.number_to_guess:
-                self.game_over = True
-                return "Congratulations! You guessed correctly."
-            elif guess < self.number_to_guess:
-                return str(guess) + " is too low! Try again."
-            else:
-                return str(guess) +  " is too high! Try again."
+    def check_guess(self, guess):
+        if self.game_over:
+            return  "Game over! Please reset the game to play again."
 
-# create an instance of the class
-game = GuessingGame()
+        self.num_attempts += 1
 
+         # Check if the guess matches the secret sequence
+        if guess == self.secret_sequence:
+            self.game_over = True
+            return  f"Congratulations! You guessed the correct sequence {guess} in {self.num_attempts} attempts."
+        
+        
+        # Check if the guess is a digit or a four-digit number
+        elif len(guess) != 4:
+            return  "Invalid guess. Please enter a four-digit sequence."
 
-       
+        else:
+            # Find which digits are in the correct position
+            correct_positions = [i for i in range(4) if guess[i] == self.secret_sequence[i]]
+            feedback = ['*' if i not in correct_positions else guess[i] for i in range(4)]
+            return  f"Guess: {' '.join(feedback)}. You have {len(correct_positions)} digit(s) in the correct position."
+
+sequence_game = NumberSequenceGame()
 
 # ELIZA-style Chatbot
 def eliza_chatbot(message_content):
@@ -134,18 +139,18 @@ def eliza_chatbot(message_content):
     """
     # Basic responses based on patterns
     responses = {
+        
       r'maths|mathematics': ["Sure.let's start with the basics,use keyword:calculate (int) plus|minus|times|divided by (int)"],  
       r'calculate (-?\d+) plus (-?\d+)':  [lambda x, y: int(x) + int(y)],
       r'calculate (-?\d+) minus (-?\d+)': [lambda x, y: int(x) - int(y)],
       r'calculate (-?\d+) times (-?\d+)': [lambda x, y: int(x) * int(y)],
       r'calculate (-?\d+) divided by (-?\d+)': [lambda x, y: (int(x) / int(y)) if int(y) != 0 else "Cannot divide by zero!"], 
-      r'game':["Sure, try to guess the number generated(1,100) both number included,Let's go:"],
-      r'(\d+)': [lambda x: game.guess(int(x))],
-      r'reset': [lambda: game.reset_game()],
+      r'game':["Sure! Let's play the Number Sequence Game. Guess a 4-digit sequence of numbers(0-9)."],
+      r'reset':[lambda:sequence_game.reset_game()],
+      r'(\d+)': [lambda x: sequence_game.check_guess(str(x))],
+      #general bot responses
       r'your name|who are you': ["I'm just a chatbot! You can call me Ruby"],
-      r'Hello|Hi|Hey|Good morning|Good afternoon': [
-        "Hello! How can I help you today?",
-        "Hi there! What brings you here?"],
+      r'Hello|Hi|Hey|Good morning|Good afternoon': ["Hello! How can I help you today?","Hi there! What brings you here?"],
       r'what can you do':["I can respond to text about Osnabrueck university and myself,tell jokes,do some basic maths and play a guess game"],
       r'favorite color|favorite food|favorite movie|favorite book|favorite music': [
         "I don't have personal preferences, but I'm curious to know about your favorites but maybe next time"],
@@ -160,6 +165,7 @@ def eliza_chatbot(message_content):
       "with pleasure,Why did the golfer bring two pairs of pants? In case he got a hole in one!"],
       r'time': ["I don't wear a watch, for me it's always chatbot o'clock!"],
       r'how old are you': ["I don't age; I'm timeless!"],
+      #osnabrueck university responses
       r'information|describe|say about|talk about': [
         "Our university, Osnabrück University, offers a wide range of academic programs and a vibrant campus life. How can I help you further?",
         "Osnabrück University is known for its diverse academic offerings and supportive community. What specific information are you looking for?"
