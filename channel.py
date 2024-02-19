@@ -106,11 +106,11 @@ class NumberSequenceGame:
         self.secret_sequence = ''.join(str(x) for x in random.sample(range(10), 4))
         self.num_attempts = 0
         self.game_over = False
-        return "Game resetted,please guess the sequence"
+        return "Game resetted,please guess the 4 digit sequence"
 
     def check_guess(self, guess):
         if self.game_over:
-            return  "Game over! Please reset the game to play again."
+            return  "Game over! Please type 'reset'  to play again."
 
         self.num_attempts += 1
 
@@ -139,7 +139,7 @@ def eliza_chatbot(message_content):
     """
     # Basic responses based on patterns
     responses = {
-        
+
       r'maths|mathematics': ["Sure.let's start with the basics,use keyword:calculate (int) plus|minus|times|divided by (int)"],  
       r'calculate (-?\d+) plus (-?\d+)':  [lambda x, y: int(x) + int(y)],
       r'calculate (-?\d+) minus (-?\d+)': [lambda x, y: int(x) - int(y)],
