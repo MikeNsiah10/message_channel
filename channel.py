@@ -137,17 +137,28 @@ def eliza_chatbot(message_content):
     """
     Simulate an ELIZA-style chatbot that responds to user messages.
     """
+    # Check if the message matches the "place" pattern
+    sequence_pattern = re.match(r'(\d+)', message_content, re.IGNORECASE)
+    if sequence_pattern:
+        return sequence_game.check_guess(sequence_pattern.group(1))
+
+    # Check if the message matches any of the "calculate" patterns
+    calculate_patterns = [
+        (r'calculate (-?\d+) plus (-?\d+)', lambda x, y: int(x) + int(y)),
+        (r'calculate (-?\d+) minus (-?\d+)', lambda x, y: int(x) - int(y)),
+        (r'calculate (-?\d+) times (-?\d+)', lambda x, y: int(x) * int(y)),
+        (r'calculate (-?\d+) divided by (-?\d+)', lambda x, y: (int(x) / int(y)) if int(y) != 0 else "Cannot divide by zero!")
+    ]
+    for pattern, operation in calculate_patterns:
+        match = re.match(pattern, message_content, re.IGNORECASE)
+        if match:
+            return operation(match.group(1), match.group(2))
     # Basic responses based on patterns
     responses = {
 
       r'maths|mathematics': ["Sure.let's start with the basics,use keyword:calculate (int) plus|minus|times|divided by (int)"],  
-      r'calculate (-?\d+) plus (-?\d+)':  [lambda x, y: int(x) + int(y)],
-      r'calculate (-?\d+) minus (-?\d+)': [lambda x, y: int(x) - int(y)],
-      r'calculate (-?\d+) times (-?\d+)': [lambda x, y: int(x) * int(y)],
-      r'calculate (-?\d+) divided by (-?\d+)': [lambda x, y: (int(x) / int(y)) if int(y) != 0 else "Cannot divide by zero!"], 
       r'game':["Sure! Let's play the Number Sequence Game. Guess a 4-digit sequence of numbers(0-9)."],
       r'reset':[lambda:sequence_game.reset_game()],
-      r'(\d+)': [lambda x: sequence_game.check_guess(str(x))],
       #general bot responses
       r'your name|who are you': ["I'm just a chatbot! You can call me Ruby"],
       r'Hello|Hi|Hey|Good morning|Good afternoon': ["Hello! How can I help you today?","Hi there! What brings you here?"],
@@ -211,7 +222,10 @@ def eliza_chatbot(message_content):
                 return response 
 
     # Default response if no match is found
-    return "Not sure how to respond to that.if  game and calculation,enter an integer,if text enter valid text(check syntax) to be matched,thanks"
+    return """Unable to give response,if  game,enter an integer,
+    if calculation,follow instructions for 'maths|mathematics'pattern,
+    if text enter valid text(check syntax) to be matched,thanks"""
+
 
 # POST: Send a message and receive bot response
 @app.route('/', methods=['POST'])
