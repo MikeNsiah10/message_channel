@@ -94,7 +94,6 @@ def save_messages(messages):
 
 
 
-
 # Number Sequence Guessing Game
 class NumberSequenceGame:
     def __init__(self):
@@ -106,7 +105,7 @@ class NumberSequenceGame:
         self.secret_sequence = ''.join(str(x) for x in random.sample(range(10), 4))
         self.num_attempts = 0
         self.game_over = False
-        return "Game resetted,please guess the 4 digit sequence"
+        return "Game resetted,please guess the 4 digit sequence(0-9)"
 
     def check_guess(self, guess):
         if self.game_over:
@@ -117,7 +116,7 @@ class NumberSequenceGame:
          # Check if the guess matches the secret sequence
         if guess == self.secret_sequence:
             self.game_over = True
-            return  f"Congratulations! You guessed the correct sequence {guess} in {self.num_attempts} attempts."
+            return  f"Congratulations! You guessed the correct sequence {guess} in {self.num_attempts} attempts.Type 'reset' to play again"
         
         
         # Check if the guess is a digit or a four-digit number
@@ -137,7 +136,7 @@ def eliza_chatbot(message_content):
     """
     Simulate an ELIZA-style chatbot that responds to user messages.
     """
-    # Check if the message matches the "place" pattern
+    # Check if the message matches the "sequence" pattern
     sequence_pattern = re.match(r'(\d+)', message_content, re.IGNORECASE)
     if sequence_pattern:
         return sequence_game.check_guess(sequence_pattern.group(1))
