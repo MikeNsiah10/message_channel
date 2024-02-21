@@ -1,8 +1,9 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: "Lucida Console", "Courier New", monospace;
     margin: 0;
     padding: 0;
-    color:white;
+    color:#f0f0f0;
+    font-weight: bold;
 }
 
 
@@ -18,12 +19,12 @@ body {
 
     a {
         text-decoration: none;
-        color: white;
+        color:#f0f0f0;
     }
     header {
         font-size: 50px;
-        background-color:#f0f0f0;
-        color:black;
+        background-color:black;
+        color:#f0f0f0;
         height: 90px;
         padding:15px 20px;
         
@@ -33,6 +34,11 @@ form {
     background-color:#f0f0f0;
     padding: 20px;
     color: black;
+    width: 50%;
+    margin:10px auto;
+    border-radius: 5px;
+    border: 1px solid black;
+    
     
     
 }
@@ -41,7 +47,7 @@ input[type="text"] {
     margin-bottom: 10px;
     width:100%;
     padding: 10px 20px;
-    border: 1px solid rgb(60, 60, 60);
+    border: 1px solid black;
     border-radius: 4px;
     box-sizing: border-box;
 }
@@ -66,10 +72,15 @@ input[type=submit]:hover {
     
 }
 .message {
-    border-bottom: 1px solid lightgray;
+    border: 1px solid black;
     padding: 10px;
     margin: 10px;
-    width: 100%;
+    width: 97%;
+    background-color:azure;
+    opacity: 0.6;
+    color: black;
+    border-radius: 5px;
+
 }
 
 .timestamp  {
