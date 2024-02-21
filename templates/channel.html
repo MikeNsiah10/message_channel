@@ -18,22 +18,6 @@
     <p>The distributed messenger. <a href="{{ url_for('home_page') }}">List of channels.</a> </p>
     {% if channel %}
         <h1>Channel {{ channel.name }}</h1>
-        <div id="starter_pack"><h2>Instructions for MultiBot Hub</h2>
-            <p>To access info about osnabrueck university.Use the following matched patterns: information|describe|say about|talk about, 
-                'courses|discipline', specialized programs|interdisciplinary programs',  'learning', 'duration|long',
-                'sports',  'support|guidance', 'deadline',  'financial aid|grants', 'career opportunity'
-            </p>
-            <p>To do calculation and play a guess game.Use the pattern and follow instructions: maths|mathematics, game</p>
-            <p><b>NOTE:</b>It is better to match the patterns to get instructions rather than directly playing the game or doing
-                a calculation
-            </p>
-        
-            <p>To access any other responses.Use the following: 'favorite color|favorite food|favorite movie|favorite book|favorite music',
-                 'how are you',   'what can you do',
-                'your name|who are you',  'Ruby',  'bye|goodbye|see you',  'weather',  'jokes',  'time',  'how old are you',
-                'thank you|thanks|thank you for the help',   'Hello|Hi|Hey|Good morning|Good afternoon',
-            </p>
-        </div>
         <div class="message-container">
             {% for message in messages %}
                 <div class="message">
