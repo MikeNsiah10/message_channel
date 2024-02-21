@@ -145,7 +145,7 @@ class NumberSequenceGame:
     # Feedback of digits in the correct position
       correct_positions = [i for i in range(4) if guess[i] == self.secret_sequence[i]]
       feedback = ['*' if i not in correct_positions else guess[i] for i in range(4)]
-      return f"Guess: {' '.join(feedback)}. You have {len(correct_positions)} digit(s) in the correct position. Attempts remaining: {10 - self.num_attempts}"
+      return f"Guess: {' '.join(feedback)}. You have {len(correct_positions)} digit(s) in the correct position. Attempts remaining: {7 - self.num_attempts}"
 
 
 #instantiate the NumberSequenceGame
