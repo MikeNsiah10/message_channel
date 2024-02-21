@@ -6,7 +6,16 @@ body {
     font-weight: bold;
 }
 
-
+#starter_pack {
+color:red;
+font-size: 16px;
+font-family:Arial, Helvetica, sans-serif;
+border: 1px solid lightgray;
+padding: 10px;
+margin: 10px;
+width: 100%;
+background-color: #f0f0f0;
+}
     ul {
         list-style-type: none;
         
