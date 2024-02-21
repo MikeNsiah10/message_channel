@@ -92,7 +92,7 @@ def read_messages():
             "content": "Welcome to the Number Sequence Guessing Game!\n\n"
                        "To play, simply guess the 4-digit sequence (0-9).\n"
                        "Type 'replay' to start a new game.\n\n"
-                       "You have only 7 attempts,Enjoy the game!",
+                       "You have only 10 attempts,Enjoy the game!",
             "sender": "Mikkybot",
             "timestamp": datetime.datetime.now().isoformat()
         }
@@ -121,7 +121,7 @@ class NumberSequenceGame:
         return """Welcome to the Number Sequence Guessing Game!\n\n"
                        To play, simply guess the 4-digit sequence (0-9).\n"
                         type 'replay' to start a new game.
-                        you have only 7 attempts"""
+                        you have only 10 attempts! Enjoy the game"""
 
 
     def check_guess(self, guess):
@@ -133,7 +133,7 @@ class NumberSequenceGame:
 
       self.num_attempts += 1
     # Allow only 10 attempts
-      if self.num_attempts > 10:
+      if self.num_attempts >= 10:
           self.game_over = True
           return f"Game over! You've exceeded the max number of attempts. Correct sequence was {self.secret_sequence}. Type 'replay' to play again."
 
@@ -145,7 +145,7 @@ class NumberSequenceGame:
     # Feedback of digits in the correct position
       correct_positions = [i for i in range(4) if guess[i] == self.secret_sequence[i]]
       feedback = ['*' if i not in correct_positions else guess[i] for i in range(4)]
-      return f"Guess: {' '.join(feedback)}. You have {len(correct_positions)} digit(s) in the correct position. Attempts remaining: {7 - self.num_attempts}"
+      return f"Guess: {' '.join(feedback)}. You have {len(correct_positions)} digit(s) in the correct position. Attempts remaining: {10 - self.num_attempts}"
 
 
 #instantiate the NumberSequenceGame
