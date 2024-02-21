@@ -22,7 +22,7 @@ app.app_context().push()  # create an app context before initializing db
 HUB_URL = 'https://temporary-server.de'
 HUB_AUTHKEY = 'Crr-K3d-2N'
 CHANNEL_AUTHKEY = '0987654321'
-CHANNEL_NAME = "Sequence Guest Game"
+CHANNEL_NAME = "Sequence Guess Game"
 CHANNEL_ENDPOINT = "http://vm954.rz.uni-osnabrueck.de/user123/channel_954.wsgi" # don't forget to adjust in the bottom of the file
 CHANNEL_FILE = 'messages.json'
 
