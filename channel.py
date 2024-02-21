@@ -133,7 +133,7 @@ class NumberSequenceGame:
 
       self.num_attempts += 1
     # Allow only 10 attempts
-      if self.num_attempts > 10:
+      if self.num_attempts >= 10:
           self.game_over = True
           return f"Game over! You've exceeded the max number of attempts. Correct sequence was {self.secret_sequence}. Type 'replay' to play again."
 
