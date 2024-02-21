@@ -92,7 +92,7 @@ def read_messages():
             "content": "Welcome to the Number Sequence Guessing Game!\n\n"
                        "To play, simply guess the 4-digit sequence (0-9).\n"
                        "Type 'replay' to start a new game.\n\n"
-                       "You have only 10 attempts,Enjoy the game!",
+                       "You have only 7 attempts,Enjoy the game!",
             "sender": "Mikkybot",
             "timestamp": datetime.datetime.now().isoformat()
         }
