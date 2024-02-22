@@ -127,22 +127,22 @@ class NumberSequenceGame:
     def check_guess(self, guess):
       if self.game_over:
          return "Game over! Please type 'replay' to play again."
-
+       #check invalid sequence
       if not guess.isdigit() or len(guess) != 4:
          return "Invalid guess. Please enter a four-digit sequence."
-
+      # Check if the guess matches the secret sequence
+      if guess == self.secret_sequence:
+         self.game_over = True
+         return f"Congratulations! You guessed the correct sequence {guess} in {self.num_attempts} attempts. Type 'replay' to play again."
       self.num_attempts += 1
     # Allow only 10 attempts
       if self.num_attempts >= 10:
           self.game_over = True
           return f"Game over! You've exceeded the max number of attempts. Correct sequence was {self.secret_sequence}. Type 'replay' to play again."
 
-    # Check if the guess matches the secret sequence
-      if guess == self.secret_sequence:
-         self.game_over = True
-         return f"Congratulations! You guessed the correct sequence {guess} in {self.num_attempts} attempts. Type 'replay' to play again."
     
-    # Feedback of digits in the correct position
+    
+    # Get Feedback of digits in the correct position
       correct_positions = [i for i in range(4) if guess[i] == self.secret_sequence[i]]
       feedback = ['*' if i not in correct_positions else guess[i] for i in range(4)]
       return f"Guess: {' '.join(feedback)}. You have {len(correct_positions)} digit(s) in the correct position. Attempts remaining: {10 - self.num_attempts}"
